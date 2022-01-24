@@ -71,7 +71,7 @@ export default function PaginaInicial() {
       <Box
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          backgroundColor: appConfig.theme.colors.primary[500],
+          backgroundColor: appConfig.theme.colors.primary['000'],
           backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2021/01/the-lord-of-the-rings-fellowship-poster.jpg)',
           backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
         }}
