@@ -72,7 +72,7 @@ export default function PaginaInicial() {
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           backgroundColor: appConfig.theme.colors.primary[500],
-          backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
+          backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2021/01/the-lord-of-the-rings-fellowship-poster.jpg)',
           backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
         }}
       >
@@ -99,7 +99,7 @@ export default function PaginaInicial() {
               width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
             }}
           >
-            <Titulo tag="h2">Boas vindas de volta!</Titulo>
+            <Titulo tag="h2">Seu lar ficou para trás agora. O mundo está à sua frente.</Titulo>
             <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
               {appConfig.name}
             </Text>
@@ -120,7 +120,7 @@ export default function PaginaInicial() {
               label='Entrar'
               fullWidth
               buttonColors={{
-                contrastColor: appConfig.theme.colors.neutrals["000"],
+                contrastColor: appConfig.theme.colors.neutrals["500"],
                 mainColor: appConfig.theme.colors.primary[500],
                 mainColorLight: appConfig.theme.colors.primary[400],
                 mainColorStrong: appConfig.theme.colors.primary[600],
