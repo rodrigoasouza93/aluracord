@@ -1,173 +1,158 @@
-import { Box, Button, Text, TextField, Image } from '@skynexui/components';
+import { Box, Button, Text, TextField, Image } from "@skynexui/components";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-import appConfig from '../config.json';
-
-function GlobalStyle() {
-  return (
-    <style global jsx>{`
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style: none;
-      }
-      body {
-        font-family: 'Open Sans', sans-serif;
-      }
-      /* App fit Height */ 
-      html, body, #__next {
-        min-height: 100vh;
-        display: flex;
-        flex: 1;
-      }
-      #__next {
-        flex: 1;
-      }
-      #__next > * {
-        flex: 1;
-      }
-      /* ./App fit Height */ 
-    `}</style>
-  )
-}
-
-function Titulo(props) {
-  const Tag = props.tag || 'h1';
-
-  return (
-    <>
-      <Tag>{props.children}</Tag>
-      <style jsx>
-        {`
-          ${Tag} {
-            color: ${appConfig.theme.colors.neutrals['000']};
-            font-size: 24px;
-            font-weight: 600;
-          }
-        `}
-      </style>
-    </>
-  );
-}
-
-// function HomePage() {
-//   return (
-//     <div>
-//       <GlobalStyle />
-//       <Title tag="h2">Boas vindas de volta!</Title>
-//       <h2>Discord - Alura Matrix</h2>
-//     </div>
-//   );
-// }
-
-// export default HomePage;
+import { appConfig } from "../config/config";
+import Titulo from "../components/title";
 
 export default function PaginaInicial() {
-  const username = 'rodrigoasouza93';
+  const [username, setUsername] = useState("");
+  const router = useRouter();
+  const [user, setUser] = useState(null);
+
+  useEffect(async () => {
+    if (username.length > 0) {
+      const response = await fetch(`https://api.github.com/users/${username}`);
+      if (response.status === 404) {
+        setUser(null);
+      } else {
+        const data = await response.json();
+        setUser(data);
+      }
+    } else {
+      setUser(null);
+    }
+  }, [username]);
 
   return (
-    <>
-      <GlobalStyle />
+    <Box
+      styleSheet={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: appConfig.theme.colors.primary["000"],
+        backgroundImage:
+          "url(https://virtualbackgrounds.site/wp-content/uploads/2021/01/the-lord-of-the-rings-fellowship-poster.jpg)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundBlendMode: "multiply",
+      }}
+    >
       <Box
         styleSheet={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          backgroundColor: appConfig.theme.colors.primary['000'],
-          backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2021/01/the-lord-of-the-rings-fellowship-poster.jpg)',
-          backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexDirection: {
+            xs: "column",
+            sm: "row",
+          },
+          width: "100%",
+          maxWidth: "700px",
+          borderRadius: "5px",
+          padding: "32px",
+          margin: "16px",
+          boxShadow: "0 2px 10px 0 rgb(0 0 0 / 20%)",
+          backgroundColor: appConfig.theme.colors.neutrals[700],
         }}
       >
+        {/* Formulário */}
         <Box
+          as="form"
           styleSheet={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexDirection: {
-              xs: 'column',
-              sm: 'row',
-            },
-            width: '100%', maxWidth: '700px',
-            borderRadius: '5px', padding: '32px', margin: '16px',
-            boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-            backgroundColor: appConfig.theme.colors.neutrals[700],
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: { xs: "100%", sm: "50%" },
+            textAlign: "center",
+            marginBottom: "32px",
+          }}
+          onSubmit={(event) => {
+            event.preventDefault();
+            router.push("/chat");
           }}
         >
-          {/* Formulário */}
-          <Box
-            as="form"
+          <Titulo tag="h2">
+            Seu lar ficou para trás agora. O mundo está à sua frente.
+          </Titulo>
+          <Text
+            variant="body3"
             styleSheet={{
-              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-              width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
+              marginBottom: "32px",
+              color: appConfig.theme.colors.neutrals[300],
             }}
           >
-            <Titulo tag="h2">Seu lar ficou para trás agora. O mundo está à sua frente.</Titulo>
-            <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
-              {appConfig.name}
-            </Text>
+            {appConfig.name}
+          </Text>
 
-            <TextField
-              fullWidth
-              textFieldColors={{
-                neutral: {
-                  textColor: appConfig.theme.colors.neutrals[200],
-                  mainColor: appConfig.theme.colors.neutrals[900],
-                  mainColorHighlight: appConfig.theme.colors.primary[500],
-                  backgroundColor: appConfig.theme.colors.neutrals[800],
-                },
-              }}
-            />
-            <Button
-              type='submit'
-              label='Entrar'
-              fullWidth
-              buttonColors={{
-                contrastColor: appConfig.theme.colors.neutrals["500"],
-                mainColor: appConfig.theme.colors.primary[500],
-                mainColorLight: appConfig.theme.colors.primary[400],
-                mainColorStrong: appConfig.theme.colors.primary[600],
-              }}
-            />
-          </Box>
-          {/* Formulário */}
+          <TextField
+            fullWidth
+            textFieldColors={{
+              neutral: {
+                textColor: appConfig.theme.colors.neutrals[200],
+                mainColor: appConfig.theme.colors.neutrals[900],
+                mainColorHighlight: appConfig.theme.colors.primary[500],
+                backgroundColor: appConfig.theme.colors.neutrals[800],
+              },
+            }}
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            placeholder="Digite o seu usuário do Github"
+          />
+          <Button
+            type="submit"
+            label="Entrar"
+            fullWidth
+            buttonColors={{
+              contrastColor: appConfig.theme.colors.neutrals["500"],
+              mainColor: appConfig.theme.colors.primary[500],
+              mainColorLight: appConfig.theme.colors.primary[400],
+              mainColorStrong: appConfig.theme.colors.primary[600],
+            }}
+          />
+        </Box>
+        {/* Formulário */}
 
-
-          {/* Photo Area */}
+        {/* Photo Area */}
+        {user && (
           <Box
             styleSheet={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              maxWidth: '200px',
-              padding: '16px',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              maxWidth: "200px",
+              padding: "16px",
               backgroundColor: appConfig.theme.colors.neutrals[800],
-              border: '1px solid',
+              border: "1px solid",
               borderColor: appConfig.theme.colors.neutrals[999],
-              borderRadius: '10px',
+              borderRadius: "10px",
               flex: 1,
-              minHeight: '240px',
+              minHeight: "240px",
             }}
           >
             <Image
               styleSheet={{
-                borderRadius: '50%',
-                marginBottom: '16px',
+                borderRadius: "50%",
+                marginBottom: "16px",
               }}
-              src={`https://github.com/${username}.png`}
+              src={user.avatar_url}
             />
             <Text
               variant="body4"
               styleSheet={{
                 color: appConfig.theme.colors.neutrals[200],
                 backgroundColor: appConfig.theme.colors.neutrals[900],
-                padding: '3px 10px',
-                borderRadius: '1000px'
+                padding: "3px 10px",
+                borderRadius: "1000px",
               }}
             >
-              {username}
+              {user.name}
             </Text>
           </Box>
-          {/* Photo Area */}
-        </Box>
+        )}
+        {/* Photo Area */}
       </Box>
-    </>
+    </Box>
   );
 }
