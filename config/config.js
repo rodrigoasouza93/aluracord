@@ -1,4 +1,4 @@
-{
+export const appConfig = {
     "name": "Aluracord - LOTR",
     "theme": {
         "colors": {
