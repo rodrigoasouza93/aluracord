@@ -1,5 +1,6 @@
 export const appConfig = {
     "name": "Aluracord - LOTR",
+    "backgroundImage": "https://virtualbackgrounds.site/wp-content/uploads/2021/01/the-lord-of-the-rings-fellowship-poster.jpg",
     "theme": {
         "colors": {
             "primary": {

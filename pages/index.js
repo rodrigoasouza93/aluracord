@@ -1,9 +1,10 @@
-import { Box, Button, Text, TextField, Image } from "@skynexui/components";
+import { Box, Button, Image, Text, TextField } from "@skynexui/components";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import { appConfig } from "../config/config";
 import Titulo from "../components/title";
+import { appConfig } from "../config/config";
+
 
 export default function PaginaInicial() {
   const [username, setUsername] = useState("");
@@ -31,8 +32,7 @@ export default function PaginaInicial() {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: appConfig.theme.colors.primary["000"],
-        backgroundImage:
-          "url(https://virtualbackgrounds.site/wp-content/uploads/2021/01/the-lord-of-the-rings-fellowship-poster.jpg)",
+        backgroundImage: `url(${appConfig.backgroundImage})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundBlendMode: "multiply",

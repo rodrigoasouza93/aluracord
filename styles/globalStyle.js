@@ -1,3 +1,5 @@
+import { appConfig } from '../config/config';
+
 export default function GlobalStyle() {
   return (
     <style global jsx>{`
@@ -25,6 +27,24 @@ export default function GlobalStyle() {
         flex: 1;
       }
       /* ./App fit Height */
+      .messages-list::-webkit-scrollbar {
+        width: 1em;
+      }
+       
+      .messages-list::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 0.5em;
+      }
+       
+      .messages-list::-webkit-scrollbar-thumb {
+        background-color: ${appConfig.theme.colors.primary[800]};
+        outline: 1px solid ${appConfig.theme.colors.primary[700]};
+        border-radius: 0.5em;
+      }
+
+      .messages-list {
+        scroll-margin: 2em;
+      }
     `}</style>
   );
 }
